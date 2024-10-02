@@ -1,8 +1,36 @@
 .App {
     color: white;
-    text-align: center;
+    text-align: left;
     background-color: black;
 }
+
+.tab-list {
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.tab-list h2 {
+  margin: 0 0 1rem 0;
+}
+
+.tab-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.tab-list li {
+  margin: 0.5rem 0;
+}
+
+.tab-list a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.tab-list a:hover {
+  text-decoration: underline;
+}
+
 
 
 

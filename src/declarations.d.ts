@@ -7,3 +7,9 @@ declare module "*.png" {
     export default content;
   }
   
+  declare namespace chrome {
+    var tabs: {
+      query: (queryInfo: chrome.tabs.QueryInfo) => Promise<chrome.tabs.Tab[]>;
+    };
+  }
+  

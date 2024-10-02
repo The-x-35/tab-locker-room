@@ -1,5 +1,5 @@
 import React from 'react';
-import './Navbar.css'; // Importing the CSS for styling
+import './Navbar.css'; 
 import logo from '../../public/lock.svg'
 
 const NavBar: React.FC = () => {
