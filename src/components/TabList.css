@@ -1,0 +1,26 @@
+.tab-list {
+    padding: 1rem;
+    border-radius: 5px;
+  }
+  
+  .tab-list ul {
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
+  }
+  
+  .tab-list li {
+    margin: 0.5rem 0; 
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .tab-list li:hover {
+    background-color: gray; 
+}
+ 
