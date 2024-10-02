@@ -15,3 +15,4 @@ rootDiv.render(
 
 document.body.style.width = '300px';  
 document.body.style.height = '400px'; 
+document.body.style.backgroundColor = 'black';
