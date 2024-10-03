@@ -50,21 +50,7 @@ const TabList: React.FC = () => {
   };
 
   const handleTabClick = (tabId: number) => {
-    chrome.storage.local.get('tabLocks', (data) => {
-      const tabLocks = data.tabLocks || {};
-      const isLocked = tabLocks[tabId];
-
-      if (isLocked) {
-        const password = prompt("Enter password:");
-        if (password === "123") {
-          chrome.tabs.update(tabId, { active: true });
-        } else {
-          alert("Incorrect password!");
-        }
-      } else {
-        chrome.tabs.update(tabId, { active: true });
-      }
-    });
+    chrome.tabs.update(tabId, { active: true });
   };
 
   return (
