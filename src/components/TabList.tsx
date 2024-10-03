@@ -19,13 +19,15 @@ const TabList: React.FC = () => {
       try {
         const fetchedTabs = await chrome.tabs.query({ currentWindow: true });
         const { tabLocks } = await chrome.storage.local.get('tabLocks') || {};
-        const formattedTabs = fetchedTabs.map(tab => ({
-          id: tab.id!,
-          title: tab.title || 'Untitled Tab',
-          url: tab.url || '',
-          favIconUrl: tab.favIconUrl || '',
-          locked: tabLocks?.[tab.id!] || false,
-        }));
+        const formattedTabs = fetchedTabs
+          .filter(tab => tab.url && !tab.url.startsWith('chrome://'))
+          .map(tab => ({
+            id: tab.id!,
+            title: tab.title || 'Untitled Tab',
+            url: tab.url || '',
+            favIconUrl: tab.favIconUrl || '',
+            locked: tabLocks?.[tab.id!] || false,
+          }));
         setTabs(formattedTabs);
       } catch (error) {
         console.error('Error fetching tabs:', error);
