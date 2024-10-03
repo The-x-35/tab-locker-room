@@ -18,12 +18,13 @@ const TabList: React.FC = () => {
     const fetchTabs = async () => {
       try {
         const fetchedTabs = await chrome.tabs.query({ currentWindow: true });
+        const { tabLocks } = await chrome.storage.local.get('tabLocks') || {};
         const formattedTabs = fetchedTabs.map(tab => ({
           id: tab.id!,
           title: tab.title || 'Untitled Tab',
           url: tab.url || '',
           favIconUrl: tab.favIconUrl || '',
-          locked: false,
+          locked: tabLocks?.[tab.id!] || false,
         }));
         setTabs(formattedTabs);
       } catch (error) {
@@ -40,21 +41,30 @@ const TabList: React.FC = () => {
         tab.id === tabId ? { ...tab, locked: !tab.locked } : tab
       )
     );
+
+    chrome.storage.local.get('tabLocks', (data) => {
+      const tabLocks = data.tabLocks || {};
+      tabLocks[tabId] = !tabLocks[tabId];
+      chrome.storage.local.set({ tabLocks });
+    });
   };
 
   const handleTabClick = (tabId: number) => {
-    const tab = tabs.find(t => t.id === tabId);
+    chrome.storage.local.get('tabLocks', (data) => {
+      const tabLocks = data.tabLocks || {};
+      const isLocked = tabLocks[tabId];
 
-    if (tab && tab.locked) {
-      const password = prompt("Enter password:");
-      if (password === "123") {
-        chrome.tabs.update(tabId, { active: true });
+      if (isLocked) {
+        const password = prompt("Enter password:");
+        if (password === "123") {
+          chrome.tabs.update(tabId, { active: true });
+        } else {
+          alert("Incorrect password!");
+        }
       } else {
-        alert("Incorrect password!");
+        chrome.tabs.update(tabId, { active: true });
       }
-    } else {
-      chrome.tabs.update(tabId, { active: true });
-    }
+    });
   };
 
   return (

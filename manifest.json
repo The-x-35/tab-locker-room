@@ -3,9 +3,9 @@
     "manifest_version": 3,
     "name": "Tab Locker Room",
     "description": "A Chrome extension to lock and password protect open tabs.",
-    "permissions": ["tabs"],
+    "permissions": ["tabs","storage"],
     "action": {
         "default_popup": "js/index.html",
-        "default_title": "React Chrome Extension"
+        "default_title": "Tab Locker Room"
     }
 }
