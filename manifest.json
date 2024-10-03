@@ -1,17 +1,22 @@
 {
-    "version": "1.0",
-    "manifest_version": 3,
-    "name": "Tab Locker Room",
-    "description": "A Chrome extension to lock and password protect open tabs.",
-    "permissions": ["tabs","storage","scripting"],
-    "host_permissions": [
-        "<all_urls>"
-      ],
-    "background": {
+  "version": "1.0",
+  "manifest_version": 3,
+  "name": "Tab Locker Room",
+  "description": "A Chrome extension to lock and password protect open tabs.",
+  "permissions": ["tabs", "storage", "scripting"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
     "service_worker": "js/background.js"
   },
-    "action": {
-        "default_popup": "js/index.html",
-        "default_title": "Tab Locker Room"
-    }
+  "action": {
+    "default_popup": "js/index.html",
+    "default_title": "Tab Locker Room"
+  },
+  "icons": {
+    "16": "lock.png",
+    "48": "lock.png",
+    "128": "lock.png"
+  }
 }
