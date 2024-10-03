@@ -1,45 +1,52 @@
 export {};
 
-// Log every 5 seconds
-setInterval(() => {
-  console.log('Background service is running...');
-}, 5000);
-
 chrome.storage.local.get('tabLocks', (data) => {
   const tabLocks = data.tabLocks || {};
 
   chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
-    // Only prompt for password when the tab is fully loaded
     if (changeInfo.status === 'complete' && tabLocks[tabId]) {
-      console.log(`Locked tab opened: ${tabId}`);
-      chrome.scripting.executeScript({
-        target: { tabId },
-        func: () => {
-          const password = prompt('This tab is locked. Enter password:');
-          if (password !== '123') {
-            chrome.tabs.update(tabId, { active: false });
-            alert('Incorrect password! Tab will remain locked.');
-          }
-        }
-      });
+      askForPassword(tabId);
     }
   });
 
   chrome.tabs.onActivated.addListener((activeInfo) => {
     const { tabId } = activeInfo;
 
-    if (tabLocks[tabId]) {
-      console.log(`Locked tab activated: ${tabId}`);
-      chrome.scripting.executeScript({
-        target: { tabId },
-        func: () => {
-          const password = prompt('This tab is locked. Enter password:');
-          if (password !== '123') {
-            chrome.tabs.update(tabId, { active: false });
-            alert('Incorrect password! Tab will remain locked.');
+    chrome.storage.local.get('tabLocks', (data) => {
+      const tabLocks = data.tabLocks || {};
+      if (tabLocks[tabId]) {
+        askForPassword(tabId);
+      } else {
+        chrome.scripting.executeScript({
+          target: { tabId },
+          func: () => {
+            document.body.style.filter = 'none';
           }
-        }
-      });
-    }
+        });
+      }
+    });
   });
 });
+
+function askForPassword(tabId: number) {
+  chrome.scripting.executeScript({
+    target: { tabId },
+    func: () => {
+      document.body.style.filter = 'blur(8px)';
+
+      let password;
+      do {
+        password = prompt('This tab is locked. Enter password:');
+        if (password === null) {
+          document.body.style.filter = 'blur(8px)';
+          return;
+        }
+        if (password !== '123') {
+          alert('Incorrect password! Please try again.');
+        }
+      } while (password !== '123');
+
+      document.body.style.filter = 'none';
+    }
+  });
+}
