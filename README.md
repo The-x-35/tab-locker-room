@@ -44,3 +44,23 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+
+npm run build
+
+chrome.storage.local.remove('appPassword', () => {
+  console.log('Password has been removed.');
+});
+
+
+chrome.storage.local.get(null, (data) => {
+  console.log(data);
+});
+
+
+//ToDo
+add eye to show passwd in first set screen 
+make change passwd setting screen 
+take passwd from storage in bg.ts
+
