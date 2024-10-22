@@ -60,7 +60,6 @@ chrome.storage.local.get(null, (data) => {
 
 
 //ToDo
-add eye to show passwd in first set screen 
 make change passwd setting screen 
 take passwd from storage in bg.ts
 
