@@ -75,7 +75,7 @@ const TabList: React.FC = () => {
                 toggleLock(tab.id);
               }} 
               className='svg-icon'
-              style={{ position: 'absolute', right: '8px', cursor: 'pointer', width: '25px', height: '25px' }} 
+              style={{ position: 'absolute', right: '20px', cursor: 'pointer', width: '20px', height: '20px' }} 
             />
           </li>
         ))}

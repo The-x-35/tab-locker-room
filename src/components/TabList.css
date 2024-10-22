@@ -20,9 +20,6 @@
     transition: background-color 0.2s;
   }
 
-  .tab-list li:hover {
-    background-color: gray; 
-}
  
 .svg-icon {
     filter: brightness(0) invert(1); 
