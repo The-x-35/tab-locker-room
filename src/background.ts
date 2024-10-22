@@ -31,6 +31,11 @@ function blurAndPrompt(tabId: number) {
   chrome.scripting.executeScript({
     target: { tabId },
     func: () => {
+      const cancelAlerts = () => {
+        window.alert = () => {};
+      };
+
+      cancelAlerts();
       document.body.style.filter = 'blur(8px)';
     }
   }, () => {
