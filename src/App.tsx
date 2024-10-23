@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from './components/Navbar';
 import TabList from './components/TabList';
-import FirstPasswordSet from './components/FirstPasswordSet'; // Import the new component
+import FirstPasswordSet from './components/FirstPasswordSet';
+import Settings from './components/Settings';
 import './App.css';
 
 const App: React.FC = () => {
   const [isPasswordSet, setIsPasswordSet] = useState<boolean | null>(null);
+  const [isSettings, setIsSettings] = useState<boolean>(false);
 
   useEffect(() => {
     chrome.storage.local.get('appPassword', (data) => {
@@ -21,6 +23,14 @@ const App: React.FC = () => {
     setIsPasswordSet(true);
   };
 
+  const handleSettingsClick = () => {
+    setIsSettings(true);
+  };
+
+  const handleBackClick = () => {
+    setIsSettings(false);
+  };
+
   if (isPasswordSet === null) {
     return <div>Loading...</div>;
   }
@@ -31,9 +41,9 @@ const App: React.FC = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar isSettings={isSettings} onBackClick={handleBackClick} onSettingsClick={handleSettingsClick} />
       <div className="App">
-        <TabList />
+        {isSettings ? <Settings /> : <TabList />}
       </div>
     </>
   );
