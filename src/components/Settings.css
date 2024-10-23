@@ -1,0 +1,79 @@
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.input-group {
+    margin-bottom: 10px;
+    width: 80%;
+}
+
+.input-label {
+    color: white;
+    margin-bottom: 5px;
+    font-size: 16px;
+    align-self: flex-start;
+    display: block;
+}
+
+input {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    margin: 3px 0;
+    width: 80%;
+}
+
+.save-button {
+    padding: 10px 20px;
+    background-color: #61dafb;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.save-button:hover {
+    background-color: #21a1f1;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.success-message {
+    color: green;
+    margin-top: 10px;
+}
+
+.github-button {
+    background-color: black;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.eye-icon {
+    position: absolute;
+    top: 50%;
+    margin-left: 5px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: white;
+}

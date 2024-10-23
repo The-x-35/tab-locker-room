@@ -60,6 +60,5 @@ chrome.storage.local.get(null, (data) => {
 
 
 //ToDo
-make change passwd setting screen 
 take passwd from storage in bg.ts
 
