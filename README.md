@@ -59,6 +59,5 @@ chrome.storage.local.get(null, (data) => {
 });
 
 
-//ToDo
-take passwd from storage in bg.ts
+
 

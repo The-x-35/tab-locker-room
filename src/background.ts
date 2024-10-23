@@ -28,21 +28,20 @@ chrome.storage.local.get('tabLocks', (data) => {
 });
 
 function blurAndPrompt(tabId: number) {
-  chrome.scripting.executeScript({
-    target: { tabId },
-    func: () => {
-      const cancelAlerts = () => {
-        window.alert = () => {};
-      };
+  chrome.storage.local.get('appPassword', (data) => {
+    const storedPassword = data.appPassword;
 
-      cancelAlerts();
-      document.body.style.filter = 'blur(8px)';
-    }
-  }, () => {
-    setTimeout(() => {
-      chrome.scripting.executeScript({
-        target: { tabId },
-        func: () => {
+    chrome.scripting.executeScript({
+      target: { tabId },
+      func: (storedPassword) => {
+        const cancelAlerts = () => {
+          window.alert = () => {};
+        };
+
+        cancelAlerts();
+        document.body.style.filter = 'blur(8px)';
+        
+        setTimeout(() => {
           let password;
           do {
             password = prompt('This tab is locked. Enter password:');
@@ -50,13 +49,14 @@ function blurAndPrompt(tabId: number) {
               document.body.style.filter = 'blur(8px)';
               return;
             }
-            if (password !== '123') {
+            if (password !== storedPassword) {
               alert('Incorrect password! Please try again.');
             }
-          } while (password !== '123');
+          } while (password !== storedPassword);
           document.body.style.filter = 'none';
-        }
-      });
-    }, 100);
+        }, 100);
+      },
+      args: [storedPassword]
+    });
   });
 }
