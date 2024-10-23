@@ -7,14 +7,16 @@ import './App.css';
 
 const App: React.FC = () => {
   const [isPasswordSet, setIsPasswordSet] = useState<boolean | null>(null);
+  const [isPasswordVerified, setIsPasswordVerified] = useState<boolean>(false);
   const [isSettings, setIsSettings] = useState<boolean>(false);
+  const [inputPassword, setInputPassword] = useState<string>(''); // Store user input
 
   useEffect(() => {
     chrome.storage.local.get('appPassword', (data) => {
       if (data.appPassword) {
-        setIsPasswordSet(true);
+        setIsPasswordSet(true); // Password is set, require verification
       } else {
-        setIsPasswordSet(false);
+        setIsPasswordSet(false); // No password set, go to initial setup
       }
     });
   }, []);
@@ -31,12 +33,41 @@ const App: React.FC = () => {
     setIsSettings(false);
   };
 
+  const verifyPassword = () => {
+    chrome.storage.local.get('appPassword', (data) => {
+      if (data.appPassword === inputPassword) {
+        setIsPasswordVerified(true); // Password is correct, show content
+      } else {
+        alert('Incorrect password!');
+        setIsPasswordVerified(false);
+      }
+    });
+  };
+
   if (isPasswordSet === null) {
     return <div>Loading...</div>;
   }
 
   if (!isPasswordSet) {
     return <FirstPasswordSet onPasswordSet={handlePasswordSet} />;
+  }
+
+  if (!isPasswordVerified) {
+    return (
+      <div className="password-prompt">
+        <h2>Please enter your password to continue</h2>
+        <input
+          type="password"
+          value={inputPassword}
+          onChange={(e) => setInputPassword(e.target.value)}
+          placeholder="Enter password"
+          className="password-input-main"
+        />
+        <button onClick={verifyPassword} className="password-submit-button">
+          Submit
+        </button>
+      </div>
+    );
   }
 
   return (

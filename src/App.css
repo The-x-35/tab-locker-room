@@ -3,3 +3,43 @@
     text-align: left;
     background-color: black;
 }
+.password-prompt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: white;
+    text-align: center;
+  }
+  
+  .password-input-main {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+  }
+  
+  .password-input::placeholder {
+    color: #bbb;
+  }
+  
+  .password-submit-button {
+    padding: 10px 20px;
+    background-color: #61dafb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+  }
+  
+  .password-submit-button:hover {
+    background-color: #21a1f1;
+  }
+  
