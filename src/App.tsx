@@ -64,7 +64,7 @@ const App: React.FC = () => {
           className="password-input-main"
         />
         <button onClick={verifyPassword} className="password-submit-button">
-          Submit
+          Unlock
         </button>
       </div>
     );
